@@ -14,7 +14,7 @@
 #include <QLineEdit>
 #include <QFormLayout>
 
-//Attention les vacationdays ne doivent pas être enregistrés en cas d'annulation
+//Attention les vacationdays ne doivent pas être enregistrés en cas d'annulation - vraiment?
 
 //Choisis les jours par équipes
 //Confirmation des jours de vacances
@@ -31,23 +31,34 @@ class MyConfirmPlanningScreen : public QWidget
 public:
     MyConfirmPlanningScreen(MyMainScreen* main);
     int CheckFormValidity();
+    void DisplayVacations();
+
 
 public slots:
     void CloseConfirmPlanningWindow();
+    void OpenVacationWindow();
     void GeneratePlanning();
+    void RemoveVacations();
 
-private:
+public:
     MyMainScreen* mainscreen_;
     QVBoxLayout* biglayout_;
 
     QHBoxLayout* teamslayout_;
     QLabel* teamsexplanationlabel_;
     QLabel* signatureexplanationlabel_;
+    QLabel* calendarexplanationlabel_;
     std::vector<QVBoxLayout*> dayslayouts_;
     std::vector<QButtonGroup*> groupboxes_;
     std::vector<QLabel*> dayslabels_;
     std::vector<QRadioButton*> As_;
     std::vector<QRadioButton*> Bs_;
+
+    QHBoxLayout* vacationslayout_;
+    QPushButton* removevacationsbuton_;
+    QPushButton* addvacationsbutton_;
+    QTableWidget* vacationstable_;
+
 
     QFormLayout* form_;
     QLineEdit* firstname_;
@@ -58,6 +69,9 @@ private:
     QHBoxLayout* buttonslayout_;
     QPushButton* okbutton_;
     QPushButton* cancelbutton_;//remember to erase added vacation days, but wait for Laeti's opinion
+
+    int selectedid_;
+    QDate selecteddate_;
 };
 
 #endif // MYCONFIRMPLANNINGSCREEN_H

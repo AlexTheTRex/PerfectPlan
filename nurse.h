@@ -31,6 +31,7 @@ class Nurse {
 
   void AddVacationDay(int day);
   void DeleteVacationDay(int day);
+  void CleanPastVacationDays();
   void ClearVacations();
   void SetFirstFriend(Nurse* myfriend);
   void SetSecondFriend(Nurse* myfriend);
@@ -41,7 +42,7 @@ class Nurse {
   int id_;
   std::string firstname_;
   std::string surname_;
-  int team_;
+  int team_; //0, 1 or 2 if deleted
   bool iside_;
   bool isas_;
   int numberofvacationdays_;

@@ -11,6 +11,7 @@
 #include <QBoxLayout>
 #include <QRadioButton>
 #include "myaccountscreen.h"
+#include "myswitchslotscreen.h"
 #include <QCalendarWidget>
 #include <QDate>
 
@@ -20,6 +21,7 @@ class MyCalendarScreen : public QWidget
 
     public:
     MyCalendarScreen(MyAccountScreen* account);
+    MyCalendarScreen(MySwitchSlotScreen* switchslot);
 
     public slots:
     void Add();
@@ -27,6 +29,7 @@ class MyCalendarScreen : public QWidget
 
     private:
     MyAccountScreen* accountscreen_;
+    MySwitchSlotScreen* switchscreen_;
 
     QPushButton* okbutton_;
     QPushButton* cancelbutton_;

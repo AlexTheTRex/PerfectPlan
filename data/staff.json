@@ -1,0 +1,506 @@
+[
+    {
+        "firstname_": "Shae",
+        "friendID1": -1,
+        "friendID2": -1,
+        "friendID3": -1,
+        "id_": 0,
+        "isas_": false,
+        "iside_": true,
+        "numberofvacationdays_": 1,
+        "password_": "sich",
+        "pathtoprofilepic_": "/Users/_sibel_kekilli.png",
+        "surname_": "SHAE",
+        "team_": 1,
+        "vacationdaysarray": [
+        ]
+    },
+    {
+        "firstname_": "Robert",
+        "friendID1": -1,
+        "friendID2": -1,
+        "friendID3": -1,
+        "id_": 1,
+        "isas_": false,
+        "iside_": true,
+        "numberofvacationdays_": 0,
+        "password_": "bbtdxmkvv",
+        "pathtoprofilepic_": "/Users/_mark_addy.jpg",
+        "surname_": "BARATHEON",
+        "team_": 0,
+        "vacationdaysarray": [
+        ]
+    },
+    {
+        "firstname_": "Tyrion",
+        "friendID1": -1,
+        "friendID2": -1,
+        "friendID3": -1,
+        "id_": 2,
+        "isas_": false,
+        "iside_": true,
+        "numberofvacationdays_": 0,
+        "password_": "lbpqmxzlz",
+        "pathtoprofilepic_": "/Users/_peter_dinklage.jpg",
+        "surname_": "LANNISTER",
+        "team_": 0,
+        "vacationdaysarray": [
+        ]
+    },
+    {
+        "firstname_": "Jaime",
+        "friendID1": -1,
+        "friendID2": -1,
+        "friendID3": -1,
+        "id_": 3,
+        "isas_": false,
+        "iside_": true,
+        "numberofvacationdays_": 0,
+        "password_": "lbpqmxzlz",
+        "pathtoprofilepic_": "/Users/_nikolaj_coster.jpg",
+        "surname_": "LANNISTER",
+        "team_": 0,
+        "vacationdaysarray": [
+        ]
+    },
+    {
+        "firstname_": "Cersei",
+        "friendID1": -1,
+        "friendID2": -1,
+        "friendID3": -1,
+        "id_": 4,
+        "isas_": false,
+        "iside_": true,
+        "numberofvacationdays_": 1,
+        "password_": "lbpqmxzlz",
+        "pathtoprofilepic_": "/Users/_lena_headey.jpg",
+        "surname_": "LANNISTER",
+        "team_": 1,
+        "vacationdaysarray": [
+        ]
+    },
+    {
+        "firstname_": "Sandor",
+        "friendID1": -1,
+        "friendID2": -1,
+        "friendID3": -1,
+        "id_": 5,
+        "isas_": false,
+        "iside_": true,
+        "numberofvacationdays_": 0,
+        "password_": "cmgjesk",
+        "pathtoprofilepic_": "/Users/_rory_mccann.jpg",
+        "surname_": "CLEGANE",
+        "team_": 0,
+        "vacationdaysarray": [
+        ]
+    },
+    {
+        "firstname_": "Gregor",
+        "friendID1": -1,
+        "friendID2": -1,
+        "friendID3": -1,
+        "id_": 6,
+        "isas_": false,
+        "iside_": true,
+        "numberofvacationdays_": 1,
+        "password_": "cmgjesk",
+        "pathtoprofilepic_": "/Users/_gregor_clegane.png",
+        "surname_": "CLEGANE",
+        "team_": 1,
+        "vacationdaysarray": [
+        ]
+    },
+    {
+        "firstname_": "Daenerys",
+        "friendID1": 8,
+        "friendID2": 9,
+        "friendID3": 23,
+        "id_": 7,
+        "isas_": false,
+        "iside_": true,
+        "numberofvacationdays_": 0,
+        "password_": "tbtjewlv",
+        "pathtoprofilepic_": "/Users/_emilia_clarke.jpg",
+        "surname_": "TARGARYEN",
+        "team_": 0,
+        "vacationdaysarray": [
+            "Sat Mar 17 2018",
+            "Thu Mar 29 2018"
+        ]
+    },
+    {
+        "firstname_": "Drogon",
+        "friendID1": 7,
+        "friendID2": 9,
+        "friendID3": 23,
+        "id_": 8,
+        "isas_": false,
+        "iside_": true,
+        "numberofvacationdays_": 0,
+        "password_": "tbtjewlv",
+        "pathtoprofilepic_": "/Users/_drogon.png",
+        "surname_": "TARGARYEN",
+        "team_": 0,
+        "vacationdaysarray": [
+        ]
+    },
+    {
+        "firstname_": "Viserion",
+        "friendID1": 8,
+        "friendID2": 7,
+        "friendID3": 23,
+        "id_": 9,
+        "isas_": false,
+        "iside_": true,
+        "numberofvacationdays_": 1,
+        "password_": "tbtjewlv",
+        "pathtoprofilepic_": "/Users/_viserion_targaryen.png",
+        "surname_": "TARGARYEN",
+        "team_": 1,
+        "vacationdaysarray": [
+        ]
+    },
+    {
+        "firstname_": "Eddard",
+        "friendID1": -1,
+        "friendID2": -1,
+        "friendID3": -1,
+        "id_": 10,
+        "isas_": false,
+        "iside_": true,
+        "numberofvacationdays_": 0,
+        "password_": "sucuo",
+        "pathtoprofilepic_": "/Users/_sean_bean.jpg",
+        "surname_": "STARK",
+        "team_": 0,
+        "vacationdaysarray": [
+        ]
+    },
+    {
+        "firstname_": "Arya",
+        "friendID1": 13,
+        "friendID2": 10,
+        "friendID3": 17,
+        "id_": 11,
+        "isas_": false,
+        "iside_": true,
+        "numberofvacationdays_": 0,
+        "password_": "sucuo",
+        "pathtoprofilepic_": "/Users/_drogon.png",
+        "surname_": "STARK",
+        "team_": 0,
+        "vacationdaysarray": [
+        ]
+    },
+    {
+        "firstname_": "Sansa",
+        "friendID1": -1,
+        "friendID2": -1,
+        "friendID3": -1,
+        "id_": 12,
+        "isas_": false,
+        "iside_": true,
+        "numberofvacationdays_": 0,
+        "password_": "sucuo",
+        "pathtoprofilepic_": "/Users/_sophie_turner.jpg",
+        "surname_": "STARK",
+        "team_": 0,
+        "vacationdaysarray": [
+        ]
+    },
+    {
+        "firstname_": "Jon",
+        "friendID1": -1,
+        "friendID2": -1,
+        "friendID3": -1,
+        "id_": 13,
+        "isas_": false,
+        "iside_": true,
+        "numberofvacationdays_": 0,
+        "password_": "soqz",
+        "pathtoprofilepic_": "/Users/_kit_harington.jpg",
+        "surname_": "SNOW",
+        "team_": 0,
+        "vacationdaysarray": [
+        ]
+    },
+    {
+        "firstname_": "Jorah",
+        "friendID1": -1,
+        "friendID2": -1,
+        "friendID3": -1,
+        "id_": 14,
+        "isas_": true,
+        "iside_": false,
+        "numberofvacationdays_": 0,
+        "password_": "mptpssz",
+        "pathtoprofilepic_": "/Users/_lord_friendzone.jpeg",
+        "surname_": "MORMONT",
+        "team_": 0,
+        "vacationdaysarray": [
+        ]
+    },
+    {
+        "firstname_": "Joffrey",
+        "friendID1": -1,
+        "friendID2": -1,
+        "friendID3": -1,
+        "id_": 15,
+        "isas_": true,
+        "iside_": false,
+        "numberofvacationdays_": 1,
+        "password_": "bbtdxmkvv",
+        "pathtoprofilepic_": "/Users/_joffrey_baratheon.jpg",
+        "surname_": "BARATHEON",
+        "team_": 1,
+        "vacationdaysarray": [
+        ]
+    },
+    {
+        "firstname_": "Walder",
+        "friendID1": -1,
+        "friendID2": -1,
+        "friendID3": -1,
+        "id_": 16,
+        "isas_": false,
+        "iside_": true,
+        "numberofvacationdays_": 1,
+        "password_": "fsg|",
+        "pathtoprofilepic_": "/Users/_walder_frey.jpg",
+        "surname_": "FREY",
+        "team_": 1,
+        "vacationdaysarray": [
+        ]
+    },
+    {
+        "firstname_": "Robb",
+        "friendID1": -1,
+        "friendID2": -1,
+        "friendID3": -1,
+        "id_": 17,
+        "isas_": false,
+        "iside_": true,
+        "numberofvacationdays_": 0,
+        "password_": "sucuo",
+        "pathtoprofilepic_": "/Users/_rob_stark.jpg",
+        "surname_": "STARK",
+        "team_": 0,
+        "vacationdaysarray": [
+            "Wed Mar 14 2018"
+        ]
+    },
+    {
+        "firstname_": "Oberyn",
+        "friendID1": -1,
+        "friendID2": -1,
+        "friendID3": -1,
+        "id_": 18,
+        "isas_": true,
+        "iside_": false,
+        "numberofvacationdays_": 0,
+        "password_": "mbtwiqr",
+        "pathtoprofilepic_": "/Users/_pedro_pascal.jpg",
+        "surname_": "MARTELL",
+        "team_": 0,
+        "vacationdaysarray": [
+        ]
+    },
+    {
+        "firstname_": "High",
+        "friendID1": -1,
+        "friendID2": -1,
+        "friendID3": -1,
+        "id_": 19,
+        "isas_": false,
+        "iside_": true,
+        "numberofvacationdays_": 1,
+        "password_": "sqcuvt}",
+        "pathtoprofilepic_": "/Users/_high_sparrow.jpg",
+        "surname_": "SPARROW",
+        "team_": 1,
+        "vacationdaysarray": [
+        ]
+    },
+    {
+        "firstname_": "King",
+        "friendID1": -1,
+        "friendID2": -1,
+        "friendID3": -1,
+        "id_": 20,
+        "isas_": false,
+        "iside_": true,
+        "numberofvacationdays_": 1,
+        "password_": "njikx",
+        "pathtoprofilepic_": "/Users/_night_king.png",
+        "surname_": "NIGHT",
+        "team_": 1,
+        "vacationdaysarray": [
+        ]
+    },
+    {
+        "firstname_": "Roose",
+        "friendID1": -1,
+        "friendID2": -1,
+        "friendID3": -1,
+        "id_": 21,
+        "isas_": false,
+        "iside_": true,
+        "numberofvacationdays_": 1,
+        "password_": "bpnwss",
+        "pathtoprofilepic_": "/Users/_roose_bolton.jpg",
+        "surname_": "BOLTON",
+        "team_": 1,
+        "vacationdaysarray": [
+        ]
+    },
+    {
+        "firstname_": "Ramsay",
+        "friendID1": -1,
+        "friendID2": -1,
+        "friendID3": -1,
+        "id_": 22,
+        "isas_": true,
+        "iside_": false,
+        "numberofvacationdays_": 1,
+        "password_": "bpnwss",
+        "pathtoprofilepic_": "/Users/_ramsay_bolton.jpg",
+        "surname_": "BOLTON",
+        "team_": 1,
+        "vacationdaysarray": [
+        ]
+    },
+    {
+        "firstname_": "Marjorie",
+        "friendID1": 7,
+        "friendID2": 8,
+        "friendID3": 9,
+        "id_": 23,
+        "isas_": false,
+        "iside_": true,
+        "numberofvacationdays_": 0,
+        "password_": "tzthpq",
+        "pathtoprofilepic_": "/Users/NatalieDormer.png",
+        "surname_": "TYRELL",
+        "team_": 0,
+        "vacationdaysarray": [
+            "Thu Mar 29 2018",
+            "Fri Mar 30 2018"
+        ]
+    },
+    {
+        "firstname_": "Maester",
+        "friendID1": -1,
+        "friendID2": -1,
+        "friendID3": -1,
+        "id_": 24,
+        "isas_": false,
+        "iside_": true,
+        "numberofvacationdays_": 1,
+        "password_": "qzdxvs",
+        "pathtoprofilepic_": "/Users/_maester_qyburn.jpg",
+        "surname_": "QYBURN",
+        "team_": 1,
+        "vacationdaysarray": [
+        ]
+    },
+    {
+        "firstname_": "Tywin",
+        "friendID1": -1,
+        "friendID2": -1,
+        "friendID3": -1,
+        "id_": 25,
+        "isas_": false,
+        "iside_": true,
+        "numberofvacationdays_": 1,
+        "password_": "lbpqmxzlz",
+        "pathtoprofilepic_": "/Users/_tywin_lannister.jpg",
+        "surname_": "LANNISTER",
+        "team_": 1,
+        "vacationdaysarray": [
+        ]
+    },
+    {
+        "firstname_": "Allister",
+        "friendID1": -1,
+        "friendID2": -1,
+        "friendID3": -1,
+        "id_": 26,
+        "isas_": false,
+        "iside_": true,
+        "numberofvacationdays_": 1,
+        "password_": "tiqurj",
+        "pathtoprofilepic_": "/Users/_allister_thorne.jpg",
+        "surname_": "THORNE",
+        "team_": 1,
+        "vacationdaysarray": [
+        ]
+    },
+    {
+        "firstname_": "Euron",
+        "friendID1": -1,
+        "friendID2": -1,
+        "friendID3": -1,
+        "id_": 27,
+        "isas_": false,
+        "iside_": true,
+        "numberofvacationdays_": 1,
+        "password_": "gsg|nt",
+        "pathtoprofilepic_": "/Users/_euron_greyjoy.jpg",
+        "surname_": "GREYJOY",
+        "team_": 1,
+        "vacationdaysarray": [
+        ]
+    },
+    {
+        "firstname_": "Brienne",
+        "friendID1": -1,
+        "friendID2": -1,
+        "friendID3": -1,
+        "id_": 28,
+        "isas_": true,
+        "iside_": false,
+        "numberofvacationdays_": 0,
+        "password_": "tbtwl",
+        "pathtoprofilepic_": "/Users/_gwendoline_christie.jpg",
+        "surname_": "TARTH",
+        "team_": 0,
+        "vacationdaysarray": [
+        ]
+    },
+    {
+        "firstname_": "Laetitia",
+        "friendID1": -1,
+        "friendID2": -1,
+        "friendID3": -1,
+        "id_": 29,
+        "isas_": false,
+        "iside_": true,
+        "numberofvacationdays_": 2,
+        "password_": "nhw|is&}iw",
+        "pathtoprofilepic_": "",
+        "surname_": "NGUYEN VAN",
+        "team_": 2,
+        "vacationdaysarray": [
+        ]
+    },
+    {
+        "firstname_": "laetitia",
+        "friendID1": 7,
+        "friendID2": 11,
+        "friendID3": 17,
+        "id_": 30,
+        "isas_": false,
+        "iside_": true,
+        "numberofvacationdays_": 0,
+        "password_": "aceg",
+        "pathtoprofilepic_": "",
+        "surname_": "NGUYEN VAN ",
+        "team_": 0,
+        "vacationdaysarray": [
+            "Fri Mar 16 2018",
+            "Sat Mar 17 2018",
+            "Sun Mar 18 2018"
+        ]
+    }
+]

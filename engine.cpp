@@ -13,6 +13,7 @@
 #include <unordered_set>
 #include <numeric>
 #include <cmath>
+#include <iostream>
 using namespace std;
 
 //If there are not 3 friends segfault!
@@ -67,28 +68,59 @@ void Engine::DeleteAccount(int id){
             }
         }
     }
-    //Perform decrement : any ID that is greater than the deleted one must be decremented
-    for (int i = 0; i < this->staff_.size(); ++i){
-        if (this->staff_[i].GetFirstFriend() != NULL){
-            if (this->staff_[i].GetFirstFriend()->GetId() > id){
-                this->staff_[i].SetFirstFriend(&this->staff_[this->staff_[i].GetFirstFriend()->GetId()-1]);
+    // Send to ghost team
+    this->staff_[id].team_ = 2;
+
+    // Delete any planning containing that id somewhere
+
+    for (auto it = this->finalplannings_.begin();
+         it != this->finalplannings_.end(); ++it){
+        bool idInPlanning = false;
+        for (auto it2 = it->second.usic1_.begin(); it2 != it->second.usic1_.end(); ++it2){
+            for (auto it3 = it2->begin(); it3 != it2->end(); ++it3){
+                if (*it3 == id){
+                    idInPlanning = true;
+                }
             }
         }
-        if (this->staff_[i].GetSecondFriend() != NULL){
-            if (this->staff_[i].GetSecondFriend()->GetId() > id){
-                this->staff_[i].SetSecondFriend(&this->staff_[this->staff_[i].GetSecondFriend()->GetId()-1]);
+        for (auto it2 = it->second.usic2_.begin(); it2 != it->second.usic2_.end(); ++it2){
+            for (auto it3 = it2->begin(); it3 != it2->end(); ++it3){
+                if (*it3 == id){
+                    idInPlanning = true;
+                }
             }
         }
-        if (this->staff_[i].GetThirdFriend() != NULL){
-            if (this->staff_[i].GetThirdFriend()->GetId() > id){
-                this->staff_[i].SetThirdFriend(&this->staff_[this->staff_[i].GetThirdFriend()->GetId()-1]);
+        for (auto it2 = it->second.uca1_.begin(); it2 != it->second.uca1_.end(); ++it2){
+            for (auto it3 = it2->begin(); it3 != it2->end(); ++it3){
+                if (*it3 == id){
+                    idInPlanning = true;
+                }
             }
         }
-    }
-    //Now perform the deletion and update IDs
-    this->staff_.erase(this->staff_.begin() + id);
-    for (int i = 0; i < this->staff_.size(); ++i){
-        this->staff_[i].id_ = i;
+        for (auto it2 = it->second.uca2_.begin(); it2 != it->second.uca2_.end(); ++it2){
+            for (auto it3 = it2->begin(); it3 != it2->end(); ++it3){
+                if (*it3 == id){
+                    idInPlanning = true;
+                }
+            }
+        }
+        for (auto it2 = it->second.hds_.begin(); it2 != it->second.hds_.end(); ++it2){
+            for (auto it3 = it2->begin(); it3 != it2->end(); ++it3){
+                if (*it3 == id){
+                    idInPlanning = true;
+                }
+            }
+        }
+        for (auto it2 = it->second.rythmo_.begin(); it2 != it->second.rythmo_.end(); ++it2){
+            for (auto it3 = it2->begin(); it3 != it2->end(); ++it3){
+                if (*it3 == id){
+                    idInPlanning = true;
+                }
+            }
+        }
+        if (idInPlanning){
+            this->finalplannings_.erase(it->first);
+        }
     }
 }
 
@@ -97,6 +129,15 @@ void Engine::AddVacationDay(int id, QDate day) { //TODO : clean passed vacation 
     this->staff_[id].vacationdays_.push_back(day);
 
 }
+
+void Engine::CleanPastVacationDays(int id){
+    for (int i = 0; i < this->staff_[id].vacationdays_.size(); ++i){
+        if (this->staff_[id].vacationdays_[this->staff_[id].vacationdays_.size() - 1 - i] < QDate::currentDate()){
+            this->staff_[id].vacationdays_.erase(this->staff_[id].vacationdays_.end() - 1 - i);
+        }
+    }
+}
+
 
 void Engine::DeleteVacationDay(int id, int rownumber){
     this->staff_[id].vacationdays_.erase(this->staff_[id].vacationdays_.begin() + rownumber);
@@ -327,42 +368,25 @@ bool Engine::LoadStaff(){
 
             QJsonObject myObject = staffarray[nurse].toObject();
 
-//            myNurse["id_"] = nurse;
             int id = myObject["id_"].toDouble();
-//            myNurse["firstname_"] = QString::fromStdString(this->staff_[nurse].firstname_);
             string firstname = myObject["firstname_"].toString().toStdString();
-//            myNurse["surname_"] = QString::fromStdString(this->staff_[nurse].surname_);
             string surname = myObject["surname_"].toString().toStdString();
-//            myNurse["team_"] = this->staff_[nurse].team_;
             int team = myObject["team_"].toDouble();
-//            myNurse["iside_"] = this->staff_[nurse].iside_;
             bool iside = myObject["iside_"].toBool();
-//            myNurse["isas_"] = this->staff_[nurse].isas_;
             bool isas = myObject["isas_"].toBool();
-//            myNurse["numberofvacationdays_"] = this->staff_[nurse].numberofvacationdays_;
             int nvd = myObject["team_"].toDouble();
 
-//            myNurse["friendID1"] = this->staff_[nurse].GetFirstFriendID();
-//            myNurse["friendID2"] = this->staff_[nurse].GetSecondFriendID();
-//            myNurse["friendID3"] = this->staff_[nurse].GetThirdFriendID();
-//            myNurse["password_"] = QString::fromStdString(this->staff_[nurse].password_);
             string password = Engine::decrypt(myObject["password_"].toString().toStdString());
-//            myNurse["pathtoprofilepic_"] = QString::fromStdString(this->staff_[nurse].pathtoprofilepic_);
             string pathtoprofilepic = myObject["pathtoprofilepic_"].toString().toStdString();
 
             Nurse myNurse = Nurse(id, firstname, surname, password, team, iside, isas);
             myNurse.numberofvacationdays_ = nvd;
             myNurse.pathtoprofilepic_ = pathtoprofilepic;
 
-//            staffarray.append(QJsonValue(myNurse));
             this->staff_.push_back(myNurse);
-            //            QJsonArray vacationsarray;
             for (int i = 0; i < myObject["vacationdaysarray"].toArray().size(); ++i){
-            //                QString datestring = this->staff_[nurse].vacationdays_[i].toString();
                 this->AddVacationDay(id, QDate::fromString(myObject["vacationdaysarray"].toArray()[i].toString()));
-            //                vacationsarray.append(QJsonValue(datestring));
             }
-            //            myNurse["vacationdaysarray"] = QJsonValue(vacationsarray);
 
         }
         //Second pass to add friendships without segfaults
@@ -380,6 +404,134 @@ bool Engine::LoadStaff(){
         }
         return true;
 }
+
+bool Engine::LoadPlannings(){
+
+        QFile loadfile(QStringLiteral(PATH_TO_PLANNING_DATA));
+        if (!loadfile.open(QIODevice::ReadOnly| QIODevice::Text)) {
+            return false;
+        }
+        QString datastring;
+        datastring = loadfile.readAll();
+        QJsonDocument datadoc = QJsonDocument::fromJson(datastring.toUtf8());
+        QJsonArray planningsarray = datadoc.array();
+
+        for (int plan = 0; plan < planningsarray.size(); ++plan){
+
+            QJsonObject myObject = planningsarray[plan].toObject();
+
+            string monday = myObject["monday_"].toString().toStdString();
+            this->finalplannings_[monday] = Planning(QDate::fromString(QString::fromStdString(monday)));
+
+            this->finalplannings_[monday].hasbeenmodified_ = myObject["hasbeenmodified_"].toBool();
+
+
+            //Usic1
+            QJsonArray usic1array = myObject["usic1_"].toArray();
+            for (int day = 0; day < 7; ++day){
+                QJsonArray arr = usic1array[day].toArray();
+                for (int i = 0; i < arr.count(); ++i){
+                    this->finalplannings_[monday].usic1_[day][i] = arr[i].toInt();
+                }
+            }
+            //Usic2
+            QJsonArray usic2array = myObject["usic2_"].toArray();
+            for (int day = 0; day < 7; ++day){
+                QJsonArray arr = usic2array[day].toArray();
+                for (int i = 0; i < arr.count(); ++i){
+                    this->finalplannings_[monday].usic2_[day][i] = arr[i].toInt();
+                }
+            }
+            //Uca1
+            QJsonArray uca1array = myObject["uca1_"].toArray();
+            for (int day = 0; day < 7; ++day){
+                QJsonArray arr = uca1array[day].toArray();
+                for (int i = 0; i < arr.count(); ++i){
+                    this->finalplannings_[monday].uca1_[day][i] = arr[i].toInt();
+                }
+            }
+            //Uca2
+            QJsonArray uca2array = myObject["uca2_"].toArray();
+            for (int day = 0; day < 7; ++day){
+                QJsonArray arr = uca2array[day].toArray();
+                for (int i = 0; i < arr.count(); ++i){
+                    this->finalplannings_[monday].uca2_[day][i] = arr[i].toInt();
+                }
+            }
+            //Rythmo
+            QJsonArray rythmoarray = myObject["rythmo_"].toArray();
+            for (int day = 0; day < 7; ++day){
+                QJsonArray arr = rythmoarray[day].toArray();
+                for (int i = 0; i < arr.count(); ++i){
+                    this->finalplannings_[monday].rythmo_[day][i] = arr[i].toInt();
+                }
+            }
+            //Hds
+            QJsonArray hdsarray = myObject["hds_"].toArray();
+            for (int day = 0; day < 4; ++day){
+                QJsonArray arr = hdsarray[day].toArray();
+                for (int i = 0; i < arr.count(); ++i){
+                    this->finalplannings_[monday].hds_[day][i] = arr[i].toInt();
+                }
+            }
+        }
+
+        return true;
+}
+
+bool Engine::SaveHistory() const{
+    QFile savefile(QStringLiteral(PATH_TO_HISTORY_DATA));
+    if (!savefile.open(QIODevice::WriteOnly)) {
+        return false;
+    }
+    QJsonArray array;
+    for (auto it = planninghistory_.begin(); it != planninghistory_.end(); ++it){
+        QJsonObject myEntry;
+        myEntry["planningmonday_"] = QJsonValue(it->planningmonday_.toString());
+        myEntry["modifdate_"] = QJsonValue(it->modifdate_.toString());
+        myEntry["modiffirstname_"] = QJsonValue(QString::fromStdString(it->modiffirstname_));
+        myEntry["modifsurname_"] = QJsonValue(QString::fromStdString(it->modifsurname_));
+        myEntry["modiftime_"] = QJsonValue(it->modiftime_.toString());
+        myEntry["motive_"] = QJsonValue(QString::fromStdString(it->motive_));
+        array.append(QJsonValue(myEntry));
+    }
+    QJsonDocument saveDoc(array);
+    savefile.write(saveDoc.toJson());
+
+    return true;
+}
+
+bool Engine::LoadHistory(){
+
+    QFile loadfile(QStringLiteral(PATH_TO_HISTORY_DATA));
+    if (!loadfile.open(QIODevice::ReadOnly| QIODevice::Text)) {
+        return false;
+    }
+    QString datastring;
+    datastring = loadfile.readAll();
+    QJsonDocument datadoc = QJsonDocument::fromJson(datastring.toUtf8());
+    QJsonArray array = datadoc.array();
+
+    for (int entry = 0; entry < array.size(); ++entry){
+
+        QJsonObject myObject = array[entry].toObject();
+        PlanningEntry myEntry;
+
+        string planningmonday = myObject["planningmonday_"].toString().toStdString();
+        myEntry.planningmonday_ = QDate::fromString(QString::fromStdString(planningmonday));
+        myEntry.modiffirstname_ = myObject["modiffirstname_"].toString().toStdString();
+        myEntry.modifsurname_ = myObject["modifsurname_"].toString().toStdString();
+        myEntry.motive_ = myObject["motive_"].toString().toStdString();
+        string modifdate = myObject["modifdate_"].toString().toStdString();
+        myEntry.modifdate_ = QDate::fromString(QString::fromStdString(modifdate));
+        string modiftime = myObject["modiftime_"].toString().toStdString();
+        myEntry.modiftime_ = QTime::fromString(QString::fromStdString(modiftime));
+
+        this->planninghistory_.push_back(myEntry);
+    }
+    return true;
+}
+
 
 string Engine::encrypt(string clear){
     string result = "";
@@ -493,15 +645,7 @@ float Engine::ComputeObjective(const Planning &planning) const{
             affectations[planning.hds_[day][i]][unitnumber]++;
         }
     }
-//    cout << "aze" << endl;
 
-//    for (auto it = affectations.begin(); it != affectations.end(); ++it){
-//        cout << it->first << " ";
-//        for (int i = 0; i < (it->second).size(); ++i){
-//            cout << (it->second)[i] << " ";
-//        }
-//        cout << endl;
-//    }
     //Now the actual computation
     float entropy = 0;
     for (auto it = affectations.begin(); it != affectations.end(); ++it){
@@ -649,8 +793,6 @@ bool Engine::PerturbatePlanning(Planning &myplanning){//Return true if swapping 
             return false;
         }
     }
-//    cout << "Swapping "  << staff_[(*p1)[slot1]].GetFirstName() << " " << staff_[(*p1)[slot1]].GetSurname() <<
-//            " with " << staff_[(*p2)[slot2]].GetFirstName() << " " << staff_[(*p2)[slot2]].GetSurname() << endl;
     return true;
 }
 
@@ -708,64 +850,56 @@ Planning Engine::GetRandomPlanning(QDate monday, const unordered_set<string>& da
 //            std::cout << *it << " ";
         }
 //        std::cout << std::endl;
+        //Check that we have enough people to fill the planning
+        if (std::min((int)availableAS.size(), 3) + availableIDE.size() < 14 - 2 * (dayint > 3)){
+            std::string s = "Impossible de calculer le planning; trop peu de personnels disponibles le ";
+            s += this->translateDays[monday.toString("dddd").toStdString()] + ".";
+            return Planning(s);
+        }
         //Fill the rest of the slots with IDEs
         int count = 0;
         myplanning.usic1_[dayint][0] = availableIDE[count];
         ++count;
-//        std::cout << count << std::endl;
         myplanning.usic1_[dayint][1] = availableIDE[count];
         ++count;
-//        std::cout << count << std::endl;
         myplanning.usic1_[dayint][2] = availableIDE[count];
         ++count;
-//        std::cout << count << std::endl;
         myplanning.usic2_[dayint][0] = availableIDE[count];
         ++count;
-        // std::cout << count << std::endl;
         myplanning.uca1_[dayint][0] = availableIDE[count];
         ++count;
-        // std::cout << count << std::endl;
         myplanning.uca1_[dayint][1] = availableIDE[count];
         ++count;
-        // std::cout << count << std::endl;
         if (availableAS.size() <= 0){
             myplanning.uca1_[dayint][2] = availableIDE[count];
             ++count;
-            // std::cout << "r" << count << std::endl;
         }
         myplanning.uca2_[dayint][0] = availableIDE[count];
         ++count;
-        // std::cout << count << std::endl;
         myplanning.rythmo_[dayint][0] = availableIDE[count];
         ++count;
-        // std::cout << count << std::endl;
         myplanning.rythmo_[dayint][1] = availableIDE[count];
         ++count;
-        // std::cout << count << std::endl;
         myplanning.rythmo_[dayint][2] = availableIDE[count];
         ++count;
-        // std::cout << count << "e" << std::endl;
         if (availableAS.size() <= 1){
             myplanning.rythmo_[dayint][3] = availableIDE[count];
             ++count;
-            // std::cout << "r" << count << std::endl;
         }
         if (dayint < 4){
             myplanning.hds_[dayint][0] = availableIDE[count];
             ++count;
-            // std::cout << count << std::endl;
             if (availableAS.size() <= 2){
                 myplanning.hds_[dayint][1] = availableIDE[count];
                 ++count;
-                // std::cout << "r" << count << std::endl;
             }
         }
-        // std::cout << "e" << std::endl;
         //At this point the planning is filled and is legal normally
     }
     return myplanning;
 
 }
+
 
 void Engine::GeneratePlanning(QDate monday, const unordered_set<string>& daysTeamA){
     this->UpdateFriendships();
@@ -773,6 +907,11 @@ void Engine::GeneratePlanning(QDate monday, const unordered_set<string>& daysTea
     vector<Planning> population;
     for (int i = 0; i < ALGORITHM_MU; ++i){
         population.push_back(this->GetRandomPlanning(monday, daysTeamA));
+        if (population.back().errormessage_.length() > 0){
+            //std::cout << population.back().errormessage_ << std::endl;
+            this->finalplannings_[monday.toString().toStdString()] = population.back();
+            return;
+        }
     }
     for (int iteration = 0; iteration < ALGORITHM_MAXITER; ++iteration){
         vector<Planning> newpopulation;
@@ -814,6 +953,121 @@ void Engine::GeneratePlanning(QDate monday, const unordered_set<string>& daysTea
         }
     }
     this->finalplannings_[monday.toString().toStdString()] = population[maxindex];
-    //this->finalplannings_[monday.toString().toStdString()]
     this->SavePlannings();
+}
+
+bool Engine::SwitchSlots(int id1, QDate date1, int id2, QDate date2){
+    std::cout << id1 << " " << date1.toString().toStdString() << " " << id2 << " " <<
+                 date2.toString().toStdString() << std::endl;
+    QDate monday1 = date1;
+    while (monday1.dayOfWeek() > 1){
+      monday1 = monday1.addDays(-1);
+    }
+    QDate monday2 = date2;
+    while (monday2.dayOfWeek() > 1){
+      monday2 = monday2.addDays(-1);
+    }
+    if (monday1 != monday2){
+        return false;
+    }
+    if (this->finalplannings_.count(monday1.toString().toStdString()) == 0){
+        return false;
+    }
+    int ndays1 = monday1.daysTo(date1);
+    int ndays2 = monday2.daysTo(date2);
+    std::cout << ndays1 << " " << ndays2 << std::endl;
+    Planning* myplanning = &this->finalplannings_[monday1.toString().toStdString()];
+    int* p1 = NULL;
+    int* p2 = NULL;
+
+    //Look in usic1
+    for (int i = 0; i < 1; ++i){
+        for (int j = 0; j < myplanning->usic1_[ndays1].size(); ++j){
+            if (myplanning->usic1_[ndays1][j] == id1){
+                p1 = &(myplanning->usic1_[ndays1][j]);
+            }
+        }
+        for (int j = 0; j < myplanning->usic1_[ndays2].size(); ++j){
+            if (myplanning->usic1_[ndays2][j] == id2){
+                p2 = &(myplanning->usic1_[ndays2][j]);
+            }
+        }
+    }
+    //Look in usic2
+    for (int i = 0; i < 1; ++i){
+        for (int j = 0; j < myplanning->usic2_[ndays1].size(); ++j){
+            if (myplanning->usic2_[ndays1][j] == id1){
+                p1 = &(myplanning->usic2_[ndays1][j]);
+            }
+        }
+        for (int j = 0; j < myplanning->usic1_[ndays2].size(); ++j){
+            if (myplanning->usic2_[ndays2][j] == id2){
+                p2 = &(myplanning->usic2_[ndays2][j]);
+            }
+        }
+    }
+    //Look in uca1
+    for (int i = 0; i < 1; ++i){
+        for (int j = 0; j < myplanning->uca1_[ndays1].size(); ++j){
+            if (myplanning->uca1_[ndays1][j] == id1){
+                p1 = &(myplanning->uca1_[ndays1][j]);
+            }
+        }
+        for (int j = 0; j < myplanning->usic1_[ndays2].size(); ++j){
+            if (myplanning->uca1_[ndays2][j] == id2){
+                p2 = &(myplanning->uca1_[ndays2][j]);
+            }
+        }
+    }
+    //Look in uca2
+    for (int i = 0; i < 1; ++i){
+        for (int j = 0; j < myplanning->uca2_[ndays1].size(); ++j){
+            if (myplanning->uca2_[ndays1][j] == id1){
+                p1 = &(myplanning->uca2_[ndays1][j]);
+            }
+        }
+        for (int j = 0; j < myplanning->usic1_[ndays2].size(); ++j){
+            if (myplanning->uca2_[ndays2][j] == id2){
+                p2 = &(myplanning->uca2_[ndays2][j]);
+            }
+        }
+    }
+    //Look in rythmo
+    for (int i = 0; i < 1; ++i){
+        for (int j = 0; j < myplanning->rythmo_[ndays1].size(); ++j){
+            if (myplanning->rythmo_[ndays1][j] == id1){
+                p1 = &(myplanning->rythmo_[ndays1][j]);
+            }
+        }
+        for (int j = 0; j < myplanning->usic1_[ndays2].size(); ++j){
+            if (myplanning->rythmo_[ndays2][j] == id2){
+                p2 = &(myplanning->rythmo_[ndays2][j]);
+            }
+        }
+    }
+    //Look in hds
+    if (ndays1 < 4){
+        for (int j = 0; j < myplanning->hds_[ndays1].size(); ++j){
+            if (myplanning->hds_[ndays1][j] == id1){
+                p1 = &(myplanning->hds_[ndays1][j]);
+            }
+        }
+        for (int j = 0; j < myplanning->usic1_[ndays2].size(); ++j){
+            if (myplanning->hds_[ndays2][j] == id2){
+                p2 = &(myplanning->hds_[ndays2][j]);
+            }
+        }
+    }
+    if (p1 == NULL || p2 == NULL){
+        return false;
+    }
+    std::cout << this->finalplannings_[monday1.toString().toStdString()].usic1_[5][0] << " " <<
+                 this->finalplannings_[monday1.toString().toStdString()].rythmo_[5][0] << std::endl;
+    int save = *p1;
+    *p1 = *p2;
+    *p2 = save;
+    this->SavePlannings();
+    std::cout << this->finalplannings_[monday1.toString().toStdString()].usic1_[5][0] << " " <<
+                 this->finalplannings_[monday1.toString().toStdString()].rythmo_[5][0] << std::endl;
+    return true;
 }

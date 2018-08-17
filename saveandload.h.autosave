@@ -1,0 +1,8 @@
+#ifndef SAVEANDLOAD_H
+#define SAVEANDLOAD_H
+
+#include <string>
+
+namespace SaveAndLoad {
+    void SaveStaff(std::string path);
+}

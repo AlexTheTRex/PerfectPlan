@@ -1,0 +1,85 @@
+#include "myminiloginscreen.h"
+
+MyMiniLoginScreen::MyMiniLoginScreen(MyConfirmPlanningScreen* confirm) : QWidget()
+
+{
+    this->setWindowTitle("Choisir un personnel");
+    this->setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::Window);
+
+    this->confirmscreen_ = confirm;
+    this->calendar_ = new QCalendarWidget;
+    this->calendar_->setLocale(QLocale::French);
+
+    this->firstname_ = new QLineEdit;
+    this->familyname_ = new QLineEdit;
+    this->myform_ = new QFormLayout;
+    this->myform_->addRow("Prénom", this->firstname_);
+    this->myform_->addRow("Nom de famille", this->familyname_);
+
+    this->buttonslayout_ = new QHBoxLayout;
+    this->okbutton_ = new QPushButton("Confirmer");
+    this->cancelbutton_ = new QPushButton("Annuler");
+    this->buttonslayout_->addWidget(this->okbutton_);
+    this->buttonslayout_->addWidget(this->cancelbutton_);
+
+    this->biglayout_ = new QVBoxLayout;
+    this->biglayout_->addLayout(this->myform_);
+    this->biglayout_->addWidget(this->calendar_);
+    this->biglayout_->addLayout(this->buttonslayout_);
+    this->setLayout(biglayout_);
+
+    QObject::connect(this->cancelbutton_, SIGNAL(clicked()), this, SLOT(CloseWindow()));
+    QObject::connect(this->okbutton_, SIGNAL(clicked()), this, SLOT(Confirm()));
+
+}
+
+void MyMiniLoginScreen::CloseWindow(){
+    this->close();
+    this->confirmscreen_->setEnabled(true);
+    delete this;-----BEGIN PGP MESSAGE-----
+            
+            hQIMA3Uq8YEG/4JQAQ/+KCfG/1KFVtJ6jZQh8YDeVWZuaAdCn2PEQlZBgM43i5OH
+            lVY9BZkrLTn/5oQDbpOg/XbrpUz0p530lmzIgkWr/kS077MSFof5/JrfCA3YggwZ
+            lXudtOCsIaVZL7NT224tmXkQD+TQ5WmVJ8llWJNxP1Zi3FUrtP5F1Vz8WoZ+59gE
+            S59T7ZmTSRlcGKdkjhWVdW5x+q3/991JnQz00j4YEvTAZXaIxiAVThlIesyRpL/1
+            JiGbNiAz6eWy1drnp6EiT6C36kV/oIsZZ6AIMctpH0ovqOPN/dy+fjCkytlS2pu3
+            7VzNcjMohA/CuEBZqjSY4w4P7GXM7VWkMwgu0WbeELuit/kIRSX14IQdcSd6nRdN
+            ysdY2r71oeLqahbzLueasL80FauLyXydMGke/fFM11NGPY/ZhfbtKEgL6V0CFPv5
+            KFN0OXj30i/BglB1LcSzrmGxjKzTpM31EHv31HeYLFLtlRQikbyOUjH8Hy2yknQc
+            gwXK/RYvUX8p3QanuzLViRreP69ih//ikXsMLVrZd2WEyN7w9KQBXkGfbF/K60Gp
+            Xr2mcZJSMiGXrqZErTvBvddA05Qwk5Zl1ZpbXXkqsmSbj8vDkolLO/saP1DbnwFq
+            y/oShAC0iEGZj/GNq6DwMqSACRo0Klx0QM0MJI4gT9BhbI/Qc9Wy6YS9osMzPQnS
+            fAFjtcGBtTpOGYYDW6tGHQP7WVEDHy+hQBTsoz4o33E/U6lzackaXFT/30WIS+9I
+            amvDZKrVszlduPJci3Qb68DE2A1/CreYcElfhGb4HTryx+swrkviBpPEdkg36898
+            oV2iDR8DY9zKEWzhX6FvXm6Ll7qCizsdpFn0TYk=
+            =idkl
+            -----END PGP MESSAGE-----
+}
+
+int MyMiniLoginScreen::CheckFormValidity(){
+    for (int i = 0; i < this->confirmscreen_->mainscreen_->engine_->staff_.size(); ++i){
+        if (QString::fromStdString(this->confirmscreen_->mainscreen_->engine_->staff_[i].GetFirstName()).toLower().toStdString() ==
+                this->firstname_->text().toLower().toStdString()){
+            if (this->confirmscreen_->mainscreen_->engine_->staff_[i].GetSurname() == this->familyname_->text().toUpper().toStdString()){
+                if (this->confirmscreen_->mainscreen_->engine_->staff_[i].team_ < 2){
+                    return i;
+                }
+            }
+        }
+    }
+    return -1;
+}
+
+void MyMiniLoginScreen::Confirm(){
+    int id = this->CheckFormValidity();
+    if (id == -1){
+        QMessageBox::warning(this, "Erreur", "Formulaire invalide; combinaison nom/prénom inconnue.");
+        return;
+    }
+    this->confirmscreen_->mainscreen_->engine_->AddVacationDay(id, this->calendar_->selectedDate());
+    this->confirmscreen_->mainscreen_->engine_->SaveStaff();
+    this->confirmscreen_->DisplayVacations();
+    this->close();
+    this->confirmscreen_->setEnabled(true);
+    delete this;
+}

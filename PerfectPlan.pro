@@ -15,7 +15,10 @@ SOURCES += \
     mycalendarscreen.cpp \
     mychangepasswordscreen.cpp \
     mydeleteaccountscreen.cpp \
-    myconfirmplanningscreen.cpp
+    myconfirmplanningscreen.cpp \
+    myplanninghistorywindow.cpp \
+    myswitchslotscreen.cpp \
+    myminiloginscreen.cpp
 
 HEADERS += \
     nurse.h \
@@ -31,4 +34,8 @@ HEADERS += \
     mycalendarscreen.h \
     mychangepasswordscreen.h \
     mydeleteaccountscreen.h \
-    myconfirmplanningscreen.h
+    myconfirmplanningscreen.h \
+    myplanninghistorywindow.h \
+    planningentry.h \
+    myswitchslotscreen.h \
+    myminiloginscreen.h

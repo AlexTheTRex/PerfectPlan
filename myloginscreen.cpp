@@ -49,7 +49,9 @@ int MyLoginScreen::CheckFormValidity(){
                 this->firstname_->text().toLower().toStdString()){
             if (this->mainscreen_->engine_->staff_[i].GetSurname() == this->familyname_->text().toUpper().toStdString()){
                 if (this->mainscreen_->engine_->staff_[i].GetPassword() == this->password_->text().toStdString()){
-                    return i;
+                    if (this->mainscreen_->engine_->staff_[i].team_ < 2){
+                        return i;
+                    }
                 }
             }
         }

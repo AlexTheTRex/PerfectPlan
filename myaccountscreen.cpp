@@ -19,7 +19,10 @@ MyAccountScreen::MyAccountScreen(Nurse* user, MyMainScreen* main) : QWidget() {
     this->setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::Window);
 
     this->changevacationsbutton_ = new QPushButton;
-    this->changefriendsbutton_ = new QPushButton;
+    this->kisslayout_ = new QVBoxLayout;
+    this->kiss1button_ = new QPushButton;
+    this->kiss2button_ = new QPushButton;
+    this->kiss3button_ = new QPushButton;
     this->changeprofilepicturebutton_ = new QPushButton;
     this->auxiliarybox2_ = new QVBoxLayout;
     this->changevacationsbox_ = new QVBoxLayout;
@@ -57,15 +60,18 @@ MyAccountScreen::MyAccountScreen(Nurse* user, MyMainScreen* main) : QWidget() {
         this->friend3_->addItem("-----AUCUN-----");
     }
     for (int i = 0; i < this->mainscreen_->engine_->staff_.size(); ++i){
-        if (i != friendid1 && i != friendid2 && i != friendid3 && i != user->GetId()){
+        if (i != friendid1 && i != friendid2 && i != friendid3 && i != user->GetId()
+                && this->mainscreen_->engine_->staff_[i].team_ < 2){
             this->friend1_->addItem(QString::fromStdString(this->mainscreen_->engine_->staff_[i].GetFirstName() + " "
                                                            + this->mainscreen_->engine_->staff_[i].GetSurname()));
         }
-        if (i != friendid1 && i != friendid2 && i != friendid3 && i != user->GetId()){
+        if (i != friendid1 && i != friendid2 && i != friendid3 && i != user->GetId()
+                && this->mainscreen_->engine_->staff_[i].team_ < 2){
             this->friend2_->addItem(QString::fromStdString(this->mainscreen_->engine_->staff_[i].GetFirstName() + " "
                                                            + this->mainscreen_->engine_->staff_[i].GetSurname()));
         }
-        if (i != friendid1 && i != friendid2 && i != friendid3 && i != user->GetId()){
+        if (i != friendid1 && i != friendid2 && i != friendid3 && i != user->GetId()
+                && this->mainscreen_->engine_->staff_[i].team_ < 2){
             this->friend3_->addItem(QString::fromStdString(this->mainscreen_->engine_->staff_[i].GetFirstName() + " "
                                                            + this->mainscreen_->engine_->staff_[i].GetSurname()));
         }
@@ -93,7 +99,12 @@ MyAccountScreen::MyAccountScreen(Nurse* user, MyMainScreen* main) : QWidget() {
     myvacations->setMaximumSize(150, 320);
     myvacations->setFont(QFont("Arial", 20));//, QFont::Bold));
 
-    this->changefriendsbutton_->setText("Faire un bisou à mes amis");
+    this->kiss1button_->setText("Lui faire un bisou");
+    this->kisslayout_->addWidget(this->kiss1button_);
+    this->kiss2button_->setText("Lui faire un bisou");
+    this->kisslayout_->addWidget(this->kiss2button_);
+    this->kiss3button_->setText("Lui faire un bisou");
+    this->kisslayout_->addWidget(this->kiss3button_);
 
     this->changevacationsbutton_->setText("Ajouter un jour de vacances");
     this->changevacationsbutton_->setMaximumHeight(50);
@@ -121,7 +132,7 @@ MyAccountScreen::MyAccountScreen(Nurse* user, MyMainScreen* main) : QWidget() {
     this->auxiliarybox2_->addWidget(this->logoutbutton_);
     this->layout_->addLayout(this->auxiliarybox2_, 5, 1, 1, 1);
     this->layout_->addWidget(myaccountbox_, 1, 3, 1, 1);
-    this->layout_->addWidget(changefriendsbutton_, 3, 4, 1, 1);
+    //this->layout_->addLayout(kisslayout_, 3, 4, 1, 1);
     this->layout_->addLayout(changevacationsbox_, 5, 4, 1, 1);
     this->friendsbox_->addWidget(this->friend1_);//, 2, 3, 1, 1);
     this->friendsbox_->addWidget(this->friend2_);//, 3, 3, 1, 1);
@@ -134,7 +145,7 @@ MyAccountScreen::MyAccountScreen(Nurse* user, MyMainScreen* main) : QWidget() {
     this->namebox_->setFont(QFont("Arial", 22));
     this->namebox_->setMaximumSize(200, 100);
     //this->changevacationsbutton_->setMaximumSize(400, 100);
-    this->changefriendsbutton_->setMaximumSize(400, 100);
+    //this->changefriendsbutton_->setMaximumSize(400, 100);
 
     QLabel* imagecontainer = new QLabel;
     imagecontainer->setAlignment(Qt::AlignRight);
@@ -175,6 +186,7 @@ MyAccountScreen::MyAccountScreen(Nurse* user, MyMainScreen* main) : QWidget() {
         }
     }
     //Build the vacations table
+    this->mainscreen_->engine_->CleanPastVacationDays(user->GetId());
     this->vacationstable_ = new QTableWidget(user->vacationdays_.size(), 2, this);
     this->vacationstable_->setHorizontalHeaderItem(0, new QTableWidgetItem("Date"));
     this->vacationstable_->setHorizontalHeaderItem(1, new QTableWidgetItem("Jour de la semaine"));
@@ -335,15 +347,18 @@ void MyAccountScreen::UpdateFriendsWidgets(){
         this->friend3_->addItem("-----AUCUN-----");
     }
     for (int i = 0; i < this->mainscreen_->engine_->staff_.size(); ++i){
-        if (i != friendid1 && i != friendid2 && i != friendid3 && i != user_->GetId()){
+        if (i != friendid1 && i != friendid2 && i != friendid3 && i != user_->GetId()
+                && this->mainscreen_->engine_->staff_[i].team_ < 2){
             this->friend1_->addItem(QString::fromStdString(this->mainscreen_->engine_->staff_[i].GetFirstName() + " "
                                                            + this->mainscreen_->engine_->staff_[i].GetSurname()));
         }
-        if (i != friendid1 && i != friendid2 && i != friendid3 && i != user_->GetId()){
+        if (i != friendid1 && i != friendid2 && i != friendid3 && i != user_->GetId()
+                && this->mainscreen_->engine_->staff_[i].team_ < 2){
             this->friend2_->addItem(QString::fromStdString(this->mainscreen_->engine_->staff_[i].GetFirstName() + " "
                                                            + this->mainscreen_->engine_->staff_[i].GetSurname()));
         }
-        if (i != friendid1 && i != friendid2 && i != friendid3 && i != user_->GetId()){
+        if (i != friendid1 && i != friendid2 && i != friendid3 && i != user_->GetId()
+                && this->mainscreen_->engine_->staff_[i].team_ < 2){
             this->friend3_->addItem(QString::fromStdString(this->mainscreen_->engine_->staff_[i].GetFirstName() + " "
                                                            + this->mainscreen_->engine_->staff_[i].GetSurname()));
         }

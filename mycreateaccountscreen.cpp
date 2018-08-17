@@ -109,7 +109,12 @@ int MyCreateAccountScreen::CheckFormValidity(){
     for (int i = 0; i < this->mainscreen_->engine_->staff_.size(); ++i){
         if (this->mainscreen_->engine_->staff_[i].GetFirstName() == this->firstname_->text().toStdString()){
             if (this->mainscreen_->engine_->staff_[i].GetSurname() == this->familyname_->text().toUpper().toStdString()){
-                return 2;
+                if (this->mainscreen_->engine_->staff_[i].team_ < 2){
+                    return 2;
+                }
+                else {
+                    return -i - 1; //We are creating accoutn with same name as deleted one
+                }
             }
         }
     }
@@ -124,6 +129,36 @@ void MyCreateAccountScreen::GoToAccountScreen(){
     }
     if (this->CheckFormValidity() == 2){
         QMessageBox::warning(this, "Erreur", "Un compte avec les même noms et prénoms existe déjà.");
+        return;
+    }
+    if (this->CheckFormValidity() < 0){
+        int team;
+        if (this->zero_->isChecked()){
+            team = 0;
+        } else {
+            team = 1;
+        }
+        int idd = this->CheckFormValidity() * (-1) - 1;
+        this->mainscreen_->engine_->staff_[idd].team_ = team;
+        this->mainscreen_->engine_->staff_[idd].firstname_ = this->firstname_->text().toStdString();
+        this->mainscreen_->engine_->staff_[idd].surname_ = this->familyname_->text().toUpper().toStdString();
+        this->mainscreen_->engine_->staff_[idd].password_ = this->password_->text().toStdString();
+        this->mainscreen_->engine_->staff_[idd].iside_ = this->ide_->isChecked();
+        this->mainscreen_->engine_->staff_[idd].isas_ = this->as_->isChecked();
+        this->mainscreen_->engine_->staff_[idd].vacationdays_.clear();
+        this->mainscreen_->engine_->staff_[idd].SetFirstFriend(NULL);
+        this->mainscreen_->engine_->staff_[idd].SetSecondFriend(NULL);
+        this->mainscreen_->engine_->staff_[idd].SetThirdFriend(NULL);
+        this->mainscreen_->engine_->staff_[idd].numberofvacationdays_ = 0;
+        this->mainscreen_->engine_->staff_[idd].pathtoprofilepic_ = PATH_TO_DEFAULT_PROFILE_PIC;
+        this->close();
+        this->mainscreen_->setEnabled(true);
+
+        MyAccountScreen* accountscreen = new MyAccountScreen(&this->mainscreen_->engine_->staff_[idd], this->mainscreen_);
+
+        accountscreen->showMaximized();
+        this->mainscreen_->hide();
+        delete this;
         return;
     }
     int team;

@@ -19,9 +19,11 @@
 #define PATH_TO_DEFAULT_PROFILE_PIC "/Users/Alexandre/Documents/Development/PerfectPlan/data/default_profile_pic.gif"
 #define PATH_TO_STAFF_DATA "/Users/Alexandre/Documents/Development/PerfectPlan/data/staff.json"
 #define PATH_TO_PLANNING_DATA "/Users/Alexandre/Documents/Development/PerfectPlan/data/plannings.json"
+#define PATH_TO_HISTORY_DATA "/Users/Alexandre/Documents/Development/PerfectPlan/data/history.json"
 #define ACCOUNT_PROFILE_PICTURE_SIZE 200
 #define STAFF_PROFILE_PIC_SIZE 57
 #define PATH_TO_NO_PLANNING "/Users/Alexandre/Documents/Development/PerfectPlan/data/noplanning.png"
+#define PATH_TO_EXPORT_PLANNING "/Users/Alexandre/Desktop/"
 #define ALGORITHM_MU 20
 #define ALGORITHM_LAMBDA 1
 #define ALGORITHM_N 3
@@ -69,10 +71,10 @@
 //faut donner l'option
 
 //Si il y a trop ou d'AS il se passe quoi? s'il y a pas assez de personnel?
-
+//Maybe try ghost IDEs
 
 //const correctness
 
 //ATTENTION ATTENTION ATTENTION ATTENTION les ids des gens changent quand on supprime un compte, mais les amis ne doivent surtout pas changer!!!
 
-
+//Deal with what happens when there are too few nurses

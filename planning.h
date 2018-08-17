@@ -6,14 +6,16 @@
 
 class Planning {
  public:
-  Planning();
+  Planning(std::string s);
   Planning(QDate monday);
+  Planning();
   //Planning(QDate monday, std::string creator, std::string dateofcreation, std::string motive);
   void swap(int unit1, int unit2, int day1, int day2, int num1, int num2);
 
  public:
   QDate monday_;
   bool hasbeenmodified_;
+  std::string errormessage_;
   //std::string creator_;
   //std::string dateofcreation_;
   //std::string motive_;

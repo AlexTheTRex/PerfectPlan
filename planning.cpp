@@ -27,5 +27,8 @@ Planning::Planning(QDate monday) {
 //  hds_ = vector < vector < int > >(4, vector<int>(2, 0));
 //}
 
+Planning::Planning(){};
 
-Planning::Planning(){}
+Planning::Planning(string s){
+    errormessage_ = s;
+}

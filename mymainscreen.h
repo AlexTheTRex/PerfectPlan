@@ -17,7 +17,7 @@ class MyMainScreen : public QWidget {
   Q_OBJECT
 
   public:
-  MyMainScreen();
+  MyMainScreen(QDate monday);
   void DisplayPlanning(const Planning& plan);
 
   public slots:
@@ -25,8 +25,8 @@ class MyMainScreen : public QWidget {
   void OpenLoginWindow();
   void OpenOptionsWindow();
   void GeneratePlanning();
-  //void PreviousPlanning();
-  //void NextPlanning();
+  void PreviousPlanning();
+  void NextPlanning();
 
 
   public:

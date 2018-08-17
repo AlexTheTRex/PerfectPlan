@@ -39,7 +39,10 @@ class MyAccountScreen : public QWidget
     MyMainScreen* mainscreen_;
     QPushButton* changevacationsbutton_;
     QPushButton* removevacationsbutton_;//
-    QPushButton* changefriendsbutton_;
+    QVBoxLayout* kisslayout_;
+    QPushButton* kiss1button_;
+    QPushButton* kiss2button_;
+    QPushButton* kiss3button_;
     QComboBox* friend1_;
     QComboBox* friend2_;
     QComboBox* friend3_;
